@@ -1,0 +1,91 @@
+redis-ha:
+  enabled: true
+
+controller:
+  replicas: 1
+
+server:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/backend-protocol: HTTPS
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/healthcheck-protocol: HTTPS
+      alb.ingress.kubernetes.io/certificate-arn: ${certificate}
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/tags: Name=${name}-lb, Environment=${environment}, Application=${project_name}
+      alb.ingress.kubernetes.io/load-balancer-attributes: routing.http.drop_invalid_header_fields.enabled=true,access_logs.s3.enabled=true,access_logs.s3.bucket=${lb_access_logs_s3_bucket},access_logs.s3.prefix=argocd
+    hosts:
+      - argocd.${domain_name}
+    tls:
+      - hosts:
+        - argocd.${domain_name}
+    https: true
+
+  rbacConfig:
+    policy.csv: |
+      g, awsadmins@ambyint.com, role:admin
+      g, aws-development@ambyint.com, role:admin
+    policy.default: role:readonly
+
+  config:
+    url: "https://argocd.${domain_name}"
+    dex.config: |
+      connectors:
+      - config:
+          redirectURI: https://argocd.${domain_name}/api/dex/callback
+          clientID: ${google_oauth_client_id}
+          clientSecret: $argocd-google-oauth-client-secret:oidc.auth0.clientSecret
+          serviceAccountFilePath: /tmp/oidc/googleAuth.json
+          adminEmail: ${google_oauth_admin_email}
+        type: google
+        id: google
+        name: Google
+
+  ingressGrpc:
+    enabled: true
+    isAWSALB: true
+    awsALB:
+      serviceType: ClusterIP
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+repoServer:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+applicationSet:
+  replicas: 2
+
+dex:
+  enabled: true
+  volumeMounts:
+    - mountPath: /tmp/oidc
+      name: google-json
+      readOnly: true
+  volumes:
+    - name: google-json
+      secret:
+        defaultMode: 420
+        secretName: argocd-google-groups-json
+        optional: true
+
+configs:
+  params:
+    application.namespaces: '${environment}-*'

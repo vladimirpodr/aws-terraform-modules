@@ -1,0 +1,208 @@
+# Global Values
+repoUrl: 'git@github.com:ambyint/aws-terraform-modules.git'
+targetRevision: HEAD
+region: ''
+account: ''
+clusterName: ''
+namespace: 'core'
+
+# Agones Values
+agones:
+  enable: false
+
+# App Mesh Values
+appMesh:
+  enable: false
+
+# Calico Values
+calico:
+  enable: false
+
+# AWS CloudWatch Metrics Values
+awsCloudWatchMetrics:
+  enable: false
+  serviceAccountName:
+
+# AWS EFS CSI Driver Values
+awsEfsCsiDriver:
+  enable: false
+  serviceAccountName:
+
+# AWS for Fluent Bit Values
+awsForFluentBit:
+  enable: false
+  logGroupName:
+  serviceAccountName:
+
+# AWS Load Balancer Controller Values
+awsLoadBalancerController:
+  enable: false
+  serviceAccountName:
+  podDisruptionBudget:
+    maxUnavailable: 1
+
+# AWS Otel Collector Values
+awsOtelCollector:
+  enable: false
+  otlpEndpoint:
+  resourceAttributes:
+
+# Cert Manager Values
+certManager:
+  enable: false
+  serviceAccountName:
+
+# Cert Manager CSI Driver Values
+certManagerCsiDriver:
+  enable: false
+
+# Cluster Autoscaler Values
+clusterAutoscaler:
+  enable: false
+  serviceAccountName:
+
+# Cluster Autoscaler Values
+DatadogAgent:
+  enable: false
+  apiKeyExistingSecret:
+
+# External DNS Values
+externalDns:
+  enable: false
+  serviceAccountName:
+  zoneIdFilter:
+
+# External Secrets Operator
+externalSecrets:
+  enable: false
+
+# Secrets Store CSI Driver and AWS Key Management Service Provider
+csiSecretsStoreProviderAws:
+  enable: false
+
+# Gatekeeper Values
+gatekeeper:
+  enable: false
+  clusterName:
+
+# Nginx Values
+ingressNginx:
+  enable: false
+
+# Grafana default Values
+grafana:
+  enable: false
+  serviceAccount:
+    create: false
+
+# Karpenter Values
+karpenter:
+  enable: false
+  serviceAccountName:
+  controllerClusterEndpoint:
+  awsDefaultInstanceProfile:
+
+# Keda Values
+keda:
+  enable: false
+  serviceAccountName:
+
+# Metrics Server Values
+metricsServer:
+  enable: false
+
+# Ondat Values
+ondat:
+  enable: false
+  etcdClusterCreate: false
+  serviceAccountName:
+  clusterSecretRefName:
+  clusterAdminUsername:
+  clusterAdminPassword:
+  clusterKvBackendAddress:
+  clusterKvBackendTLSSecretName:
+  clusterKvBackendTLSSecretNamespace:
+  clusterNodeSelectorTermKey:
+  clusterNodeSelectorTermValue:
+  etcdNodeSelectorTermKey:
+  etcdNodeSelectorTermValue:
+  etcdClusterReplicas:
+  etcdClusterStorageclass:
+  etcdClusterStorage:
+
+# Prometheus Values
+prometheus:
+  enable: false
+  serviceAccountName:
+  roleArn:
+  ampWorkspaceUrl:
+
+# Metrics Server Values
+sparkOperator:
+  enable: false
+
+# Tetrate Istio Values
+tetrateIstio:
+  enable: false
+  base:
+  cni:
+  istiod:
+  global:
+
+# Traefik Values
+traefik:
+  enable: false
+
+# VPA Values
+vpa:
+  enable: false
+
+# Yunikorn Values
+yunikorn:
+  enable: false
+
+# Argo Rollout Values
+argoRollouts:
+  enable: false
+
+# Kube State Metrics Values
+kubeStateMetrics:
+  enable: false
+  serviceAccountName:
+
+# Kubernetes Dashboard Values
+kubernetesDashboard:
+  enable: false
+  serviceAccountName:
+
+# promtail Values
+promtail:
+  enable: false
+
+# kubecost Values
+kubecost:
+  enable: false
+
+# SMB CSI Driver Values
+smbCsiDriver:
+  enable: false
+
+# Chaos Mesh Values
+chaosMesh:
+  enable: false
+
+# Cilium Mesh Values
+cilium:
+  enable: false
+
+# Reloader Values
+reloader:
+  enable: false
+
+# NVIDIA Device Plugin Values
+nvidiaDevicePlugin:
+  enable: false
+
+# FLUX v2
+flux2:
+  enable: false

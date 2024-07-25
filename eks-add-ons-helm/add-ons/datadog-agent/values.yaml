@@ -1,0 +1,8 @@
+datadog:
+  datadog:
+    site: datadoghq.com
+    collectEvents: true
+    leaderElection: true
+    logs:
+      enabled: true
+      containerCollectAll: true

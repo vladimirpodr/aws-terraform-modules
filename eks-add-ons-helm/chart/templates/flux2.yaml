@@ -1,0 +1,31 @@
+{{- if and (.Values.flux2) (.Values.flux2.enable) -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flux2
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.repoUrl }}
+    path: eks-add-ons-helm/add-ons/flux2
+    targetRevision: {{ .Values.targetRevision }}
+    helm:
+      values: |
+        flux2:
+        {{- toYaml .Values.flux2 | nindent 10 }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+    retry:
+      limit: 1
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 1m
+{{- end -}}

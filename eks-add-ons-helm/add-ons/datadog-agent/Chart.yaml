@@ -1,0 +1,17 @@
+apiVersion: v2
+name: datadog-agent
+description: A Helm chart for installing Datadog agent
+type: application
+
+# The chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.1.1
+
+# Version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application.
+appVersion: "1.0"
+
+dependencies:
+- name: datadog
+  version: 3.0.0
+  repository: https://helm.datadoghq.com

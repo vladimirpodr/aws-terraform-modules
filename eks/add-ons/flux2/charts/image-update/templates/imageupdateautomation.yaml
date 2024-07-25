@@ -1,0 +1,27 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: {{ .Values.name }}
+spec:
+  interval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: {{ .Values.name }}
+  git:
+    checkout:
+      ref:
+        branch: {{ .Values.branch }}
+    commit:
+      author:
+        name: fluxbot
+        email: fluxcdbot@ambyint.com
+      messageTemplate: |-
+        {{`Release images:
+        {{range .Updated.Images}}{{println .}}{{end}}
+
+        [ci skip]`}}
+    push:
+      branch: {{ .Values.branch }}
+  update:
+    strategy: Setters
+    path: ./

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: flux-gitrepository
+description: A Helm chart that installs an Flux V2 GitRepository custom resource
+type: application
+version: 0.1.0
+appVersion: 0.1.0
